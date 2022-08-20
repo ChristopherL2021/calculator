@@ -13,3 +13,18 @@ function multiply(num1, num2) {
 function divide(num1, num2) {
     return num1 / num2;
 }
+
+function operate(operand, num1, num2) {
+    switch(operand) {
+        case 'add':
+            return add(num1, num2);
+        case 'subtract':
+            return subtract(num1, num2);
+        case 'multiply':
+            return multiply(num1, num2);
+        case 'divide':
+            return divide(num1, num2);
+        default:
+            return "No valid operand";
+    }
+}
