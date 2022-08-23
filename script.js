@@ -30,3 +30,15 @@ function operate(operand, num1, num2) {
             return "No valid operand";
     }
 }
+
+const screen = document.querySelector('#screen-output');
+
+const buttons = document.querySelectorAll('button');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        screen.textContent = button.id;
+    })
+})
+
+screen.textContent = 0;
