@@ -5,11 +5,15 @@ const screen = document.querySelector('#screen-output');
 const zero = document.querySelector('#zero');
 const clear = document.querySelector('#clear');
 const period = document.querySelector('#period');
-const plus = document.querySelector('#plus');
-const equals = document.querySelector('#equals');
+const plusKey = document.querySelector('#plusKey');
+const equalsKey = document.querySelector('#equalsKey');
+const subtractKey = document.querySelector('#subtractKey');
+const multiplyKey = document.querySelector('#multiplyKey');
+const divideKey = document.querySelector('#divideKey');
 
 let operatorValue = undefined;
 let previousOperation = undefined;
+let answer = undefined;
 
 function add(num1, num2) {
     return num1 + num2;
@@ -51,6 +55,11 @@ numbers.forEach((number) => {
 
 // Listener and append for the value zero
 zero.addEventListener('click', () => {
+    if (answer) {
+        screen.textContent = '0';
+        resetNumberVariables();
+    }
+    
     if (screen.textContent.length > 8) {
         return;
     }
@@ -64,6 +73,11 @@ zero.addEventListener('click', () => {
 
 // function to append non zero values
 function appendScreen(number) {
+    if (answer) {
+        screen.textContent = '0';
+        resetNumberVariables();
+    }
+    
     if (screen.textContent.length > 8) {
         return;
     }
@@ -79,6 +93,12 @@ function appendScreen(number) {
     }
 
     screen.append(number.textContent);
+}
+
+function CheckIfOperand() {
+    if (operatorValue) {
+        return true;
+    }
 }
 
 // Checks if an operand has been clicked
@@ -105,10 +125,16 @@ function checkOperand(operand) {
 // Clears and sets the screen to zero
 clear.addEventListener('click', () => {
     screen.textContent = '0';
+    resetNumberVariables();
 });
 
+// Period Key
 period.addEventListener('click', () => {
     if (screen.textContent.includes('.')) {
+        return;
+    }
+
+    if (answer) {
         return;
     }
 
@@ -116,16 +142,66 @@ period.addEventListener('click', () => {
 });
 
 // Plus operator
-plus.addEventListener('click', () => {
-    if (checkOperand(plus)) {
+plusKey.addEventListener('click', () => {
+    if (CheckIfOperand()) {
         return;
     }
     
     operatorValue = 'add';
-    previousOperation = parseInt(screen.textContent);
+    previousOperation = screen.textContent;
     screen.textContent = '+';
 });
 
-equals.addEventListener('click', () => {
-    screen.textContent = operate(operatorValue, Number(previousOperation), Number(screen.textContent));
+// Equals key function
+equalsKey.addEventListener('click', () => {
+    if (answer) {
+        return;
+    }
+
+    if (previousOperation === undefined) {
+        return;
+    }
+
+    answer = operate(operatorValue, Number(previousOperation), Number(screen.textContent));
+    screen.textContent = answer;
+});
+
+// Resets math variables after operation
+function resetNumberVariables() {
+    answer = undefined;
+    previousOperation = undefined;
+    operatorValue = undefined;
+}
+
+// Subtract key
+subtractKey.addEventListener('click', () => {
+    if (CheckIfOperand()) {
+        return;
+    }
+
+    operatorValue = 'subtract';
+    previousOperation = screen.textContent;
+    screen.textContent = '-';
+});
+
+// Multiply Key
+multiplyKey.addEventListener('click', () => {
+    if (CheckIfOperand()) {
+        return;
+    }
+
+    operatorValue = 'multiply';
+    previousOperation = screen.textContent;
+    screen.textContent = '*';
+});
+
+// Divide Key
+divideKey.addEventListener('click', () => {
+    if (CheckIfOperand()) {
+        return;
+    }
+
+    operatorValue = 'divide';
+    previousOperation = screen.textContent;
+    screen.textContent = '/';
 });
