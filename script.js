@@ -5,6 +5,11 @@ const screen = document.querySelector('#screen-output');
 const zero = document.querySelector('#zero');
 const clear = document.querySelector('#clear');
 const period = document.querySelector('#period');
+const plus = document.querySelector('#plus');
+const equals = document.querySelector('#equals');
+
+let operatorValue = undefined;
+let previousOperation = undefined;
 
 function add(num1, num2) {
     return num1 + num2;
@@ -22,8 +27,8 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-function operate(operand, num1, num2) {
-    switch(operand) {
+function operate(operator, num1, num2) {
+    switch(operator) {
         case 'add':
             return add(num1, num2);
         case 'subtract':
@@ -63,12 +68,38 @@ function appendScreen(number) {
         return;
     }
 
+    if (checkOperand(screen.textContent)) {
+        screen.textContent = number.textContent;
+        return;
+    }
+
     if (screen.textContent[0] === '0' && !(screen.textContent.includes('.'))) {
         screen.textContent = number.textContent;
         return;
     }
 
     screen.append(number.textContent);
+}
+
+// Checks if an operand has been clicked
+function checkOperand(operand) {
+    if (screen.textContent.includes('/')) {
+        return true;
+    }
+
+    if (screen.textContent.includes('*')) {
+        return true;
+    }
+
+    if (screen.textContent.includes('-')) {
+        return true;
+    }
+
+    if (screen.textContent.includes('+')) {
+        return true;
+    }
+
+    return false;
 }
 
 // Clears and sets the screen to zero
@@ -82,4 +113,19 @@ period.addEventListener('click', () => {
     }
 
     screen.append(period.textContent);
+});
+
+// Plus operator
+plus.addEventListener('click', () => {
+    if (checkOperand(plus)) {
+        return;
+    }
+    
+    operatorValue = 'add';
+    previousOperation = parseInt(screen.textContent);
+    screen.textContent = '+';
+});
+
+equals.addEventListener('click', () => {
+    screen.textContent = operate(operatorValue, Number(previousOperation), Number(screen.textContent));
 });
