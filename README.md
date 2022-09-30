@@ -2,7 +2,7 @@
 This is a calculator built using HTML, CSS and JavaScript.<br>
 <a href="https://christopherl2021.github.io/calculator/">You can view it here</a>.
 
----
+<br>
 
 ## Skills Demonstrated
 * HTML
