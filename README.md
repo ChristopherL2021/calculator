@@ -1,9 +1,6 @@
-# calculator
-## Its a calculator.
-<br>
-Not really much to say about it. Use the on screen buttons to select the
-numbers and operations you wish to use.
-<br><br><br>
+# Calculator
+This is a calculator built using HTML, CSS and JavaScript.<br>
+<a href="https://christopherl2021.github.io/calculator/">You can view it here</a>.
 
 ---
 
