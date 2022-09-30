@@ -1,6 +1,6 @@
 # Calculator
 This is a calculator built using HTML, CSS and JavaScript.<br>
-<a href="https://christopherl2021.github.io/calculator/" target="_blank">You can view it here</a>.
+<a href="https://christopherl2021.github.io/calculator/">You can view it here</a>.
 
 <br>
 
